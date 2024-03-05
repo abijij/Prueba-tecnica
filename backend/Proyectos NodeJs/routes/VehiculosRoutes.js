@@ -12,6 +12,12 @@ module.exports = (app, upload) => {
 
     app.get('/api/vehiculos/findById/:id',  vehiculosController.findById);
 
+    app.get('/api/vehiculos/searchByModel/:model', vehiculosController.searchByModel);
+
+    app.get('/api/vehiculos/searchByYear/:year', vehiculosController.searchByYear);
+
+    app.get('/api/vehiculos/searchByBrand/:brand', vehiculosController.searchByBrand);
+
     
 
 }

@@ -162,4 +162,166 @@ Vehiculos.findById = (id, result) => {
     );
 }
 
+Vehiculos.searchByModel = (model) => {
+    return new Promise((resolve, reject) => {
+        const sql = `
+            SELECT
+                V.id,
+                V.placa,
+                V.numero_economico,
+                V.vim,
+                V.asientos,
+                V.seguro,
+                V.seguro_numero,
+                V.brand,
+                V.model,
+                V.year,
+                V.color
+            FROM 
+                vehiculos as V
+            WHERE
+                V.model LIKE ?
+        `;
+        const searchPattern = `%${model}%`;
+
+        db.query(
+            sql,
+            [searchPattern],
+            (err, res) => {
+                if (err) {
+                    console.error('Error executing SQL query:', err);
+                    reject({ status: 500, message: 'Error en la consulta SQL.' });
+                } else if (res.length === 0) {
+                    resolve({ status: 404, message: 'No se encontraron vehículos con ese modelo.' });
+                } else {
+                    console.log('Vehiculo(s) obtenido(s):', JSON.stringify(res, null, 3));
+                    resolve({ status: 200, data: res });
+                }
+            }
+        );
+    });
+};
+
+Vehiculos.searchByColor = (color) => {
+    return new Promise((resolve, reject) => {
+        const sql = `
+            SELECT
+                V.id,
+                V.placa,
+                V.numero_economico,
+                V.vim,
+                V.asientos,
+                V.seguro,
+                V.seguro_numero,
+                V.brand,
+                V.model,
+                V.year,
+                V.color
+            FROM 
+                vehiculos as V
+            WHERE
+                V.color LIKE ?
+        `;
+        const searchPattern = `%${color}%`;
+
+        db.query(
+            sql,
+            [searchPattern],
+            (err, res) => {
+                if (err) {
+                    console.error('Error executing SQL query:', err);
+                    reject({ status: 500, message: 'Error en la consulta SQL.' });
+                } else if (res.length === 0) {
+                    resolve({ status: 404, message: 'No se encontraron vehículos con ese modelo.' });
+                } else {
+                    console.log('Vehiculo(s) obtenido(s):', JSON.stringify(res, null, 3));
+                    resolve({ status: 200, data: res });
+                }
+            }
+        );
+    });
+};
+
+Vehiculos.searchByYear = (year) => {
+    return new Promise((resolve, reject) => {
+        const sql = `
+            SELECT
+                V.id,
+                V.placa,
+                V.numero_economico,
+                V.vim,
+                V.asientos,
+                V.seguro,
+                V.seguro_numero,
+                V.brand,
+                V.model,
+                V.year,
+                V.color
+            FROM 
+                vehiculos as V
+            WHERE
+                V.year LIKE ?
+        `;
+        const searchPattern = `%${year}%`;
+
+        db.query(
+            sql,
+            [searchPattern],
+            (err, res) => {
+                if (err) {
+                    console.error('Error executing SQL query:', err);
+                    reject({ status: 500, message: 'Error en la consulta SQL.' });
+                } else if (res.length === 0) {
+                    resolve({ status: 404, message: 'No se encontraron vehículos con ese modelo.' });
+                } else {
+                    console.log('Vehiculo(s) obtenido(s):', JSON.stringify(res, null, 3));
+                    resolve({ status: 200, data: res });
+                }
+            }
+        );
+    });
+};
+
+Vehiculos.searchByBrand = (brand) => {
+    return new Promise((resolve, reject) => {
+        const sql = `
+            SELECT
+                V.id,
+                V.placa,
+                V.numero_economico,
+                V.vim,
+                V.asientos,
+                V.seguro,
+                V.seguro_numero,
+                V.brand,
+                V.model,
+                V.year,
+                V.color
+            FROM 
+                vehiculos as V
+            WHERE
+                V.brand LIKE ?
+        `;
+        const searchPattern = `%${brand}%`;
+
+        db.query(
+            sql,
+            [searchPattern],
+            (err, res) => {
+                if (err) {
+                    console.error('Error executing SQL query:', err);
+                    reject({ status: 500, message: 'Error en la consulta SQL.' });
+                } else if (res.length === 0) {
+                    resolve({ status: 404, message: 'No se encontraron vehículos con ese modelo.' });
+                } else {
+                    console.log('Vehiculo(s) obtenido(s):', JSON.stringify(res, null, 3));
+                    resolve({ status: 200, data: res });
+                }
+            }
+        );
+    });
+};
+
+
+
 module.exports = Vehiculos;
