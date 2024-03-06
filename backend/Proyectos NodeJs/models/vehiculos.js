@@ -342,7 +342,7 @@ Vehiculos.getAll = () => {
             ORDER BY 
                 V.id
         `;
-        b.query(
+        db.query(
             sql,
             (err, res) => {
                 if (err) {
