@@ -322,8 +322,8 @@ Vehiculos.searchByBrand = (brand) => {
     });
 };
 
-Vehiculos.getAll = () => {
-    return new Promise((resolve, reject) => {
+Vehiculos.getAll = (result) => {
+
         const sql = `
             SELECT
                 V.id,
@@ -354,9 +354,9 @@ Vehiculos.getAll = () => {
                     result(null, res);
                 }
             }
-        );
-    });
-};
+        )
+    
+}
 
 
 
