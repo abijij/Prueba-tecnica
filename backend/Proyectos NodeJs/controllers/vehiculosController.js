@@ -136,13 +136,18 @@ module.exports = {
     },
 
     getAll(req, res) {
-        Vehiculos.getAll(err, data)
+        Vehiculos.getAll((err, data)=>{
+        if (err) {
             return res.status(501).json({
                 success: false,
-                message: 'Hubo un error al momento de listar de los vehiculos del usuario',
+                message: 'Hubo un error al momento de listar de los vehiculos',
                 error: err
             });
-    },
+        }
+        return res.status(201).json(data);
+
+    });
+}
     
 
 }
