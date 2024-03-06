@@ -322,6 +322,40 @@ Vehiculos.searchByBrand = (brand) => {
     });
 };
 
+Vehiculos.getAll = () => {
+    return new Promise((resolve, reject) => {
+        const sql = `
+            SELECT
+                V.id,
+                V.placa,
+                V.numero_economico,
+                V.vim,
+                V.asientos,
+                V.seguro,
+                V.seguro_numero,
+                V.brand,
+                V.model,
+                V.year,
+                V.color
+            FROM 
+                vehiculos as V
+        `;
+
+        db.query(
+            sql,
+            (err, res) => {
+                if (err) {
+                    console.error('Error executing SQL query:', err);
+                    reject({ success: false, message: 'Error en la consulta SQL.' });
+                } else {
+                    console.log('Vehiculos obtenidos:', JSON.stringify(res, null, 3));
+                    resolve({ success: true, data: res });
+                }
+            }
+        );
+    });
+};
+
 
 
 module.exports = Vehiculos;

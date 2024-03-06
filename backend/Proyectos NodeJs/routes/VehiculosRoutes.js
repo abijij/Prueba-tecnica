@@ -18,6 +18,8 @@ module.exports = (app, upload) => {
 
     app.get('/api/vehiculos/searchByBrand/:brand', vehiculosController.searchByBrand);
 
+    app.get('/api/vehiculos/getAll', vehiculosController.getAll);
+
     
 
 }
