@@ -1,14 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
+import  { useContext, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { show_alert } from '../../funtions';
 import { VehiculoContext } from '../context/VehiculoContext';
 import { Vehiculo } from '../../Domain/entities/Vehiculos';
+import '../../style.css';
 
 export const ShowVehiculos = () => {
   const { getAllVehiculos, vehiculos, create, update, remove } = useContext(VehiculoContext);
   const [title, setTitle] = useState('');
   const [operation, setOperation] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1);
+  const vehiclesPerPage = 5;
 
   const [values, setValues] = useState({
     id: '',
@@ -151,8 +154,15 @@ export const ShowVehiculos = () => {
     });
   }
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   console.log("Log para la tabla boton" + JSON.stringify(vehiculos, null, 3))
+
+  const indexOfLastVehicle = currentPage * vehiclesPerPage;
+  const indexOfFirstVehicle = indexOfLastVehicle - vehiclesPerPage;
+  const currentVehicles = vehiculos.slice(indexOfFirstVehicle, indexOfLastVehicle);
 
   return (
     <div className='App'>
@@ -169,7 +179,7 @@ export const ShowVehiculos = () => {
         <div className='row mt-3'>
           <div className='' col-12 col-lg-8 offset-0 offset-lg-2>
             <div className='table-responsive'>
-              <table className='table table-bordered'>
+              <table className='table table-bordered table-sm'>
                 <thead>
                   <tr>
                     <th>Id</th>
@@ -186,25 +196,25 @@ export const ShowVehiculos = () => {
                   </tr>
                 </thead>
                 <tbody className='table-group-divider'>
-                  {vehiculos.map((vehiculo) => (
+                  {currentVehicles.map((vehiculo) => (
                     <tr key={vehiculo.id}>
-                      <td>{vehiculo.id}</td>
-                      <td>{vehiculo.placa}</td>
-                      <td>{vehiculo.numero_economico}</td>
-                      <td>{vehiculo.vim}</td>
+                      <td className='table-cell'>{vehiculo.id}</td>
+                      <td className='table-cell'>{vehiculo.placa}</td>
+                      <td className='table-cell'>{vehiculo.numero_economico}</td>
+                      <td className='table-cell'>{vehiculo.vim}</td>
                       <td>{vehiculo.asientos}</td>
-                      <td>{vehiculo.seguro}</td>
-                      <td>{vehiculo.seguro_numero}</td>
-                      <td>{vehiculo.brand}</td>
+                      <td className='table-cell'>{vehiculo.seguro}</td>
+                      <td className='table-cell'>{vehiculo.seguro_numero}</td>
+                      <td className='table-cell'>{vehiculo.brand}</td>
                       <td>{vehiculo.model}</td>
-                      <td>{vehiculo.year}</td>
-                      <td>{vehiculo.color}</td>
-                      <td>
+                      <td className='table-cell'>{vehiculo.year}</td>
+                      <td className='table-cell'>{vehiculo.color}</td>
+                      <td className='table-cell'>
                         <button onClick={() => openModal(2, vehiculo.id || '', vehiculo.placa || '', vehiculo.numero_economico || '', vehiculo.vim || '', vehiculo.asientos || 0, vehiculo.seguro || '', vehiculo.seguro_numero || 0, vehiculo.brand || '', vehiculo.model || '', vehiculo.year || 0, vehiculo.color || '')} className='btn btn-warning' data-bs-toggle='modal' data-bs-target='#modalVehiculos'>
                           <i className='fa-solid fa-edit'></i>
                         </button>
                       </td>
-                      <td>
+                      <td className='table-cell'>
                         <button 
                         onClick={() => deleteVehiculo(vehiculo)}
                         className='btn btn-danger'>
@@ -215,9 +225,21 @@ export const ShowVehiculos = () => {
                   ))}
                 </tbody>
               </table>
-            </div>
+              <nav>
+              <ul className="pagination">
+                {Array.from({ length: Math.ceil(vehiculos.length / vehiclesPerPage) }, (_, index) => (
+                  <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                    <button className="page-link" onClick={() => handlePageChange(index + 1)}>
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            
           </div>
         </div>
+      </div>
       </div>
       <div id='modalVehiculos' className='modal fade' aria-hidden='true'>
         <div className='modal-dialog'>
