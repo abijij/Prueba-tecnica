@@ -10,53 +10,58 @@ import { GetVehiculoByModelUseCase } from '../../Domain/useCases/Vehiculos/Searc
 import { GetVehiculoByYearUseCase } from '../../Domain/useCases/Vehiculos/SearchVehiculoByYear';
 
 export const ShowVehiculos = () => {
-  const { getAllVehiculos, vehiculos, create, update, remove, } = useContext(VehiculoContext);
+  const { getAllVehiculos, vehiculos, create, update, remove, saveVehiculosSession} = useContext(VehiculoContext);
   const [title, setTitle] = useState('');
   const [operation, setOperation] = useState(1)
   const [currentPage, setCurrentPage] = useState(1);
   const vehiclesPerPage = 5;
   const [searchType, setSearchType] = useState('Marca');
-  const [vehiuculo, setVehiculo] = useState<Vehiculo[]>([]);
+  const [vehiculo, setVehiculo] = useState<Vehiculo[]>([]);
   const [searchText, setSearchText] = useState('');
   const [searchActive, setSearchActive] = useState(false);
-
-  console.log(searchText);
-  console.log(searchType);
-
   
   const searchVehiculos = async (name: string) => {
+    if (name.trim() === '') {
+      getAllVehiculos();
+    } else {
     let result;
 
     switch (searchType) {
       case 'brand':
-        result = await GetVehiculosByBrandUseCase(name);
-        setVehiculo(result);
+        const brandResult = await GetVehiculosByBrandUseCase(name);
+        result = brandResult;
+        saveVehiculosSession(result);
         break;
       case 'model':
-        result = await GetVehiculoByModelUseCase(name);
-        setVehiculo(result);
+        const modelResult = await GetVehiculoByModelUseCase(name);
+        result=modelResult;
+        saveVehiculosSession(result);
         break;
       case 'year':
-        result = await GetVehiculoByYearUseCase(parseInt(name));
-        setVehiculo(result);
+        const yearResult = await GetVehiculoByYearUseCase(parseInt(name));
+        result=yearResult;
+        saveVehiculosSession(result);
         break;
       default:
         break;
     }
-
-    setVehiculo(result || []); // Si result es null o undefined, asigna un array vacío
+    console.log('Contenido de vehiuculo:', vehiculos);
+    setVehiculo(result || []); 
+  }
   };
 
   const handleSearchClick = () => {
-    // Activar la búsqueda cuando se hace clic en el icono de búsqueda
+    
     setSearchActive(true);
   };
 
+  
+
   useEffect(() => {
-    // Realizar la búsqueda solo cuando searchActive esté activo
+    
     if (searchActive) {
       searchVehiculos(searchText);
-      setSearchActive(false); // Desactivar la búsqueda después de realizarla
+      setSearchActive(false);
     }
   }, [searchActive, searchText]);
 
