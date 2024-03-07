@@ -75,7 +75,7 @@ Vehiculos.update = (vehiculos, result) => {
         color = ?,
         lat = ?,
         lng = ?,
-        ubicacion =?,
+        ubicacion =?
     WHERE
         id = ? 
             

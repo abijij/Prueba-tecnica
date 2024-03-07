@@ -23,7 +23,10 @@ export const VehiculoInitialState: Vehiculo = {
     brand: '',
     model: '',
     year: 0,
-    color: ''
+    color: '',
+    lat: '',
+    lng:'',
+    ubicacion: ''
 }
 
 

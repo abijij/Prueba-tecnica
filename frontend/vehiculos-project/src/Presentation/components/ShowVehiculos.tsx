@@ -78,7 +78,10 @@ export const ShowVehiculos = () => {
     brand: '',
     model: '',
     year: 0,
-    color: ''
+    color: '',
+    lat:'',
+    lng:'',
+    ubicacion:''
   })
   const marcasDeVehiculos = [
     "Audi",
@@ -118,7 +121,7 @@ export const ShowVehiculos = () => {
     setYears(yearsArray);
   }, []);
 
-  const openModal = (op: number, id: string, placa: string, numero_economico: string, vim: string, asientos: number, seguro: string, seguro_numero: number, brand: string, model: string, year: number, color: string) => {
+  const openModal = (op: number, id: string, placa: string, numero_economico: string, vim: string, asientos: number, seguro: string, seguro_numero: number, brand: string, model: string, year: number, color: string , lat: string, lng: string, ubicacion:string) => {
     setValues({
       id: '',
       placa: '',
@@ -130,7 +133,10 @@ export const ShowVehiculos = () => {
       brand: '',
       model: '',
       year: 0,
-      color: ''
+      color: '',
+      lat: '',
+      lng:'',
+      ubicacion: ''
     });
 
     setOperation(op);
@@ -150,7 +156,10 @@ export const ShowVehiculos = () => {
         brand,
         model,
         year,
-        color
+        color,
+        lat,
+        lng,
+        ubicacion,
       });
     }
 
@@ -278,7 +287,7 @@ export const ShowVehiculos = () => {
                   <i className='fa-solid fa-search'></i>
                 </button>
               </div>
-              <button onClick={() => openModal(1, '', '', '', '', 0, '', 0, '', '', 0, '')} className='btn btn-dark' data-bs-toggle='modal' data-bs-target='#modalVehiculos'>
+              <button onClick={() => openModal(1, '', '', '', '', 0, '', 0, '', '', 0, '', '', '', '')} className='btn btn-dark' data-bs-toggle='modal' data-bs-target='#modalVehiculos'>
                 <i className='fa-solid fa-circle-plus'></i> Añadir
               </button>
             </div>
@@ -318,7 +327,7 @@ export const ShowVehiculos = () => {
                       <td className='table-cell'>{vehiculo.year}</td>
                       <td className='table-cell'>{vehiculo.color}</td>
                       <td className='table-cell'>
-                        <button onClick={() => openModal(2, vehiculo.id || '', vehiculo.placa || '', vehiculo.numero_economico || '', vehiculo.vim || '', vehiculo.asientos || 0, vehiculo.seguro || '', vehiculo.seguro_numero || 0, vehiculo.brand || '', vehiculo.model || '', vehiculo.year || 0, vehiculo.color || '')} className='btn btn-warning' data-bs-toggle='modal' data-bs-target='#modalVehiculos'>
+                        <button onClick={() => openModal(2, vehiculo.id || '', vehiculo.placa || '', vehiculo.numero_economico || '', vehiculo.vim || '', vehiculo.asientos || 0, vehiculo.seguro || '', vehiculo.seguro_numero || 0, vehiculo.brand || '', vehiculo.model || '', vehiculo.year || 0, vehiculo.color || '', vehiculo.lat || '', vehiculo.lng || '', vehiculo.ubicacion || '')} className='btn btn-warning' data-bs-toggle='modal' data-bs-target='#modalVehiculos'>
                           <i className='fa-solid fa-edit'></i>
                         </button>
                       </td>
