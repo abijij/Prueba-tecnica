@@ -194,9 +194,7 @@ export const Maps: React.FC = () => {
           console.log('<----------------SOCKET IO CONNECTION---------------->');
       });
       
-      socket.on(`position/${firstVehiculo.id}`, (data: any) => {
-          setPosition({latitude: data.lat, longitude: data.lng, ubicacion: data.ubicacion});
-      })
+      socket.emit('position', {id: firstVehiculo.id, lat: firstVehiculo.lat, lng: firstVehiculo.lng, ubicacion: firstVehiculo.ubicacion })
   }, [vehiculo])
     return (
         <Fragment>
