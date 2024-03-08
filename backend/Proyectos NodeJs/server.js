@@ -10,7 +10,7 @@ const multer = require('multer');
 
 const vehiculosRoutes = require('./routes/VehiculosRoutes');
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 443;
 
 app.use(logger('dev'));
 app.use(express.json());
