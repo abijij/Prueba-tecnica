@@ -19,9 +19,9 @@ const VehiculoState = ({ children }: any) => {
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  
     <VehiculoState>
     <App />
     </VehiculoState>
-  </React.StrictMode>,
+  
 )

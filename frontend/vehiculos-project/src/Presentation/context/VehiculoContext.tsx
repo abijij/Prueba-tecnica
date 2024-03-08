@@ -32,16 +32,12 @@ export const VehiculoInitialState: Vehiculo = {
 
 export interface VehiculosContextProps{
 
-     vehiculo : Vehiculo,
+     vehiculo : Vehiculo[],
 
     vehiculos : Vehiculo[],
 
-    getVehiculoSession: () => Promise<void>;
-
     saveVehiculosSession: (vehiculo: Vehiculo[]) => Promise<void>;
 
-    removeVehiculoSession: () => Promise<void>;
-    
     getVehiculoById(idVehiculo: string): Promise<void>,
 
     create(vehiculo:Vehiculo): Promise<ResponseApiVehiculos>,
@@ -58,19 +54,17 @@ export const VehiculoContext = createContext({} as VehiculosContextProps);
 
 export const VehiculoProvider = ({children}: any) => {
 
-    const [vehiculo, setvehiculo] = useState(VehiculoInitialState);
+    const [vehiculo, setvehiculo] = useState<Vehiculo[]>([VehiculoInitialState]);
 
     const [vehiculos, setvehiculos] = useState<Vehiculo[]>([])
 
-    useEffect(() => {
-        getVehiculoSession();
-    }, [])
-    
+   
+
 
     const getVehiculoById = async(idVehiculo: string): Promise <void> => {
 
         const result = await GetVehiculoByIdUseCase(idVehiculo);
-        setvehiculos(result);
+        setvehiculo(result);
     }
 
     const create = async(vehiculo: Vehiculo): Promise<ResponseApiVehiculos> => {
@@ -91,15 +85,7 @@ export const VehiculoProvider = ({children}: any) => {
         return response;
     }
 
-    const getVehiculoSession = async() => {
-        const vehiculo = await GetVehiculoLocalUseCase();
-        setvehiculo(vehiculo);
-    }
-
-    const removeVehiculoSession = async() => {
-        await RemoveVehiculoLocalUseCase();
-        setvehiculo(VehiculoInitialState);
-    }
+    
 
     const getAllVehiculos = async (): Promise<Vehiculo[]> => {
         const result = await GetAllVehiculosUseCase();
@@ -120,8 +106,6 @@ export const VehiculoProvider = ({children}: any) => {
             getVehiculoById,
             create,
             remove,
-            getVehiculoSession,
-            removeVehiculoSession,
             update,
             saveVehiculosSession
         }}>

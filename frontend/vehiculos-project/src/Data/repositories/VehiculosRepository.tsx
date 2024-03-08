@@ -19,7 +19,7 @@ export class VehiculosRepositoryImpl implements VehiculoRepository{
     }
     async findById(idVehiculo: string): Promise<Vehiculo[]> {
         try {
-            const response = await ApiVehiculos.get<Vehiculo[]>(`/vehiculos/findById/:id/${idVehiculo}`);
+            const response = await ApiVehiculos.get<Vehiculo[]>(`/vehiculos/findById/${idVehiculo}`);
             return Promise.resolve(response.data);
         } catch (error) {
             let e = (error as AxiosError);

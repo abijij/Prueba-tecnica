@@ -17,7 +17,7 @@ export const ShowVehiculos = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const vehiclesPerPage = 5;
   const [searchType, setSearchType] = useState('Marca');
-  const [vehiculo, setVehiculo] = useState<Vehiculo[]>([]);
+
   const [searchText, setSearchText] = useState('');
   const [searchActive, setSearchActive] = useState(false);
   const [years, setYears] = useState<number[]>([]);
@@ -48,7 +48,7 @@ export const ShowVehiculos = () => {
           break;
       }
       console.log('Contenido de vehiuculo:', vehiculos);
-      setVehiculo(result || []);
+      
     }
   };
 
@@ -252,7 +252,7 @@ export const ShowVehiculos = () => {
 
 
 
-  console.log("Log para la tabla boton" + JSON.stringify(vehiculos, null, 3))
+  //console.log("Log para la tabla boton" + JSON.stringify(vehiculos, null, 3))
 
   const indexOfLastVehicle = currentPage * vehiclesPerPage;
   const indexOfFirstVehicle = indexOfLastVehicle - vehiclesPerPage;
