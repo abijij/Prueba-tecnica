@@ -19,7 +19,7 @@ export const Maps: React.FC = () => {
     const [showMessage, setShowMessage] = useState(false);
     const [detailLoc, setdetailLoc] = useState("");
     const [routingEnabled, setRoutingEnabled] = useState(false);
-    console.log(activeMarker)
+    
     
 
   
@@ -70,8 +70,7 @@ export const Maps: React.FC = () => {
     
             setdetailLoc(addressDetails);
     
-            console.log("Ubicación seleccionada:", clickedLocation);
-            console.log("Detalles de la ubicación:", addressDetails);
+            
         }
     };;
 
@@ -139,11 +138,11 @@ export const Maps: React.FC = () => {
           } else {
             try {
               await getVehiculoById(searchText2);
-              console.log("Log para ver si trae datos vehiculo" + JSON.stringify(vehiculo))
+              
     
               if (Array.isArray(vehiculo) && vehiculo.length > 0) {
                 const firstVehiculo = vehiculo[0];
-                console.log(vehiculo)
+                
                 setVehicleLocation({
                   lat: parseFloat(firstVehiculo.lat),
                   lng: parseFloat(firstVehiculo.lng),
@@ -152,7 +151,7 @@ export const Maps: React.FC = () => {
                 // Activar el enrutamiento
                 setRoutingEnabled(true);
     
-                console.log("Id que se va a rastrear " + vehicleLocation)
+                
                 show_alert('Vehículo va a ser rastreado.', 'success');
                 console.log(vehicleLocation);
               } else {
@@ -167,10 +166,7 @@ export const Maps: React.FC = () => {
         return true;
       }
 
-    useEffect(() => {
-
-        console.log("Nuevo valor de vehicleLocation:", vehicleLocation);
-    }, [vehicleLocation]);
+   
 
 
     const handleAddButtonClick2 = () => {
