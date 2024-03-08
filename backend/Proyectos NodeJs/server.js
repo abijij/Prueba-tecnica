@@ -2,7 +2,7 @@ const express = require('express');
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
-
+const server = https.createServer(credentials, app);
 const app = express();
 const logger = require('morgan');
 const cors = require('cors');
@@ -36,7 +36,7 @@ const certificate = fs.readFileSync(certificatePath, 'utf8');
 
 const credentials = { key: privateKey, cert: certificate };
 
-const server = https.createServer(credentials, app);
+
 
 server.listen(port, '172.26.6.212', function () {
     console.log('Listening on port ' + port + ' with HTTPS');
