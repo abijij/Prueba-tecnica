@@ -20,13 +20,9 @@ export const Maps: React.FC = () => {
     const [detailLoc, setdetailLoc] = useState("");
     const [routingEnabled, setRoutingEnabled] = useState(false);
     console.log(activeMarker)
-    const [position, setPosition] = useState({
-      latitude: 0.0,
-      longitude: 0.0,
-      ubicacion: ""
-  })
+    
 
-  console.log(position)
+  
 
     
 
