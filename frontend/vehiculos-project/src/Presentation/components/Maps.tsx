@@ -3,6 +3,7 @@ import { GoogleMap, useLoadScript, Marker, DirectionsService, DirectionsRenderer
 import { UpdateVehiculoLocUseCase } from '../../Domain/useCases/Vehiculos/UpdateVehiculoLoc';
 import { show_alert } from '../../funtions';
 import { VehiculoContext } from "../context/VehiculoContext";
+import socket from '../../utils/SocketIo';
 
 export const Maps: React.FC = () => {
     const { vehiculos, getAllVehiculos, getVehiculoById, vehiculo } = useContext(VehiculoContext);
@@ -19,6 +20,10 @@ export const Maps: React.FC = () => {
     const [detailLoc, setdetailLoc] = useState("");
     const [routingEnabled, setRoutingEnabled] = useState(false);
     console.log(activeMarker)
+    const [position, setPosition] = useState({
+      latitude: 0.0,
+      longitude: 0.0
+  })
     
 
 
@@ -171,6 +176,23 @@ export const Maps: React.FC = () => {
     const handleAddButtonClick2 = () => {
         validar2();
     }
+
+    useEffect(() => {
+      const firstVehiculo = vehiculo[0];
+                console.log(vehiculo)
+                setVehicleLocation({
+                  lat: parseFloat(firstVehiculo.lat),
+                  lng: parseFloat(firstVehiculo.lng),
+                });
+      socket.connect();
+      socket.on('connect', () =>{
+          console.log('<----------------SOCKET IO CONNECTION---------------->');
+      });
+      
+      socket.on(`position/${firstVehiculo.id}`, (data: any) => {
+          setPosition({latitude: data.lat, longitude: data.lng});
+      })
+  }, [vehiculo])
     return (
         <Fragment>
       <div className="container">
