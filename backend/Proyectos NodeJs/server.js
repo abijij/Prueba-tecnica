@@ -24,8 +24,8 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 vehiculosRoutes(app, upload);
 
-const privateKeyPath = require ('./cert/server.key');
-const certificatePath = require ('./cert/server.cer');
+const privateKeyPath = './cert/server.key';
+const certificatePath = './cert/server.cer';
 
 const privateKey = fs.readFileSync(privateKeyPath, 'utf8');
 const certificate = fs.readFileSync(certificatePath, 'utf8');
