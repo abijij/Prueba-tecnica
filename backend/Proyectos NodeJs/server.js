@@ -38,6 +38,7 @@ server.listen(port, '172.26.6.212', function () {
     console.log('Listening on port ' + port + ' with HTTPS');
 });
 
+
 app.use((err, req, res, next) => {
     console.log(err);
     res.status(err.status || 500).send(err.stack);
