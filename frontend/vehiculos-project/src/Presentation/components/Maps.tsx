@@ -19,7 +19,7 @@ export const Maps: React.FC = () => {
     const [showMessage, setShowMessage] = useState(false);
     const [detailLoc, setdetailLoc] = useState("");
     const [routingEnabled, setRoutingEnabled] = useState(false);
-    console.log(activeMarker)
+    
     
 
     useEffect(() => {
@@ -168,21 +168,41 @@ export const Maps: React.FC = () => {
     }
 
     useEffect(() => {
-      
       const firstVehiculo = vehiculo[0];
-                console.log(vehiculo)
-                setVehicleLocation({
-                  lat: parseFloat(firstVehiculo.lat),
-                  lng: parseFloat(firstVehiculo.lng),
-                });
-      socket.connect();
-      socket.on('connect', () =>{
-          console.log('<----------------SOCKET IO CONNECTION---------------->');
-      });
-      socket.emit('position', {id: firstVehiculo.id, lat: firstVehiculo.lat, lng: firstVehiculo.lng, ubicacion: firstVehiculo.ubicacion })
-  }, [vehiculo])
-
   
+      // Establecer la ubicación del vehículo al cargar el componente
+      setVehicleLocation({
+        lat: parseFloat(firstVehiculo.lat),
+        lng: parseFloat(firstVehiculo.lng)
+      });
+  
+      // Conectar el socket y emitir la posición del vehículo
+      socket.connect();
+      socket.on("connect", () => {
+        console.log("<----------------SOCKET IO CONNECTION---------------->");
+      });
+      socket.emit("position", {
+        id: firstVehiculo.id,
+        lat: firstVehiculo.lat,
+        lng: firstVehiculo.lng,
+        ubicacion: firstVehiculo.ubicacion
+      });
+  
+      // Enviar la posición del vehículo cada 10 segundos
+      const intervalId = setInterval(() => {
+        socket.emit("position", {
+          id: firstVehiculo.id,
+          lat: firstVehiculo.lat,
+          lng: firstVehiculo.lng,
+          ubicacion: firstVehiculo.ubicacion  
+        });
+      }, 10000);
+  
+      // Limpiar el intervalo cuando el componente se desmonta
+      return () => clearInterval(intervalId);
+    }, [vehiculo]);
+
+
     return (
         <Fragment>
       <div className="container">

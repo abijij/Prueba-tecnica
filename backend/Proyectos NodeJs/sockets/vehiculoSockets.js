@@ -7,7 +7,8 @@ module.exports = (io) => {
 
         socket.on('position', (data)  => {
             console.log('El Vehiculo emitio :' , data);
-            namespace.emit(`position/${data.id}`, {id: data.id, lat: data.lat, lng: data.lng, ubicaion: data.ubicaion });
+            namespace.emit(`position/${data.id}`, {id: data.id, lat: data.lat, lng: data.lng, ubicacion: data.ubicacion });
+
         });
 
         socket.on('disconnect', (data) => {
