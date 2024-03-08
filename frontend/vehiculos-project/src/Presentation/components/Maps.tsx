@@ -22,8 +22,12 @@ export const Maps: React.FC = () => {
     console.log(activeMarker)
     const [position, setPosition] = useState({
       latitude: 0.0,
-      longitude: 0.0
+      longitude: 0.0,
+      ubicacion: ""
   })
+
+  console.log(position)
+
     
 
 
@@ -190,7 +194,7 @@ export const Maps: React.FC = () => {
       });
       
       socket.on(`position/${firstVehiculo.id}`, (data: any) => {
-          setPosition({latitude: data.lat, longitude: data.lng});
+          setPosition({latitude: data.lat, longitude: data.lng, ubicacion: data.ubicacion});
       })
   }, [vehiculo])
     return (
