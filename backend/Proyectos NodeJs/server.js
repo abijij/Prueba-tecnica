@@ -9,22 +9,28 @@ const cors = require('cors');
 const multer = require('multer');
 
 const vehiculosSocket = require('./sockets/vehiculoSockets');
-
 const vehiculosRoutes = require('./routes/VehiculosRoutes');
 
 const port = process.env.PORT || 443;
 
 app.use(logger('dev'));
+
+
+const corsOptions = {
+  origin: 'https://prueba-tecnica-khaki.vercel.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 app.disable('x-powered-by');
-
 app.set('port', port);
 
 const upload = multer({ storage: multer.memoryStorage() });
-
-
 
 vehiculosRoutes(app, upload);
 
@@ -45,7 +51,6 @@ vehiculosSocket(io);
 server.listen(port, '172.26.6.212', function () {
     console.log('Listening on port ' + port + ' with HTTPS');
 });
-
 
 app.use((err, req, res, next) => {
     console.log(err);
