@@ -24,6 +24,7 @@ export const Maps: React.FC = () => {
 
     useEffect(() => {
         getAllVehiculos()
+        activeMarker
 
     }, [])
 
