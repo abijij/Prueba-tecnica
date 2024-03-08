@@ -40,7 +40,7 @@ const server = https.createServer(credentials, app);
 
 const io = require('socket.io')(server, {
     cors: {
-      origin: 'https://prueba-tecnica-khaki.vercel.app',
+      origin: ['https://prueba-tecnica-khaki.vercel.app','http://localhost:5173'],
       methods: ['GET', 'POST'],
       credentials: true,
     },

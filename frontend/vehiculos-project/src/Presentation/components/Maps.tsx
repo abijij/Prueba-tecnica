@@ -22,12 +22,6 @@ export const Maps: React.FC = () => {
     console.log(activeMarker)
     
 
-  
-
-    
-
-
-
     useEffect(() => {
         getAllVehiculos()
 
@@ -174,7 +168,7 @@ export const Maps: React.FC = () => {
     }
 
     useEffect(() => {
-      console.log("log del socket" + JSON.stringify(vehiculo));
+      
       const firstVehiculo = vehiculo[0];
                 console.log(vehiculo)
                 setVehicleLocation({
@@ -185,9 +179,10 @@ export const Maps: React.FC = () => {
       socket.on('connect', () =>{
           console.log('<----------------SOCKET IO CONNECTION---------------->');
       });
-      
       socket.emit('position', {id: firstVehiculo.id, lat: firstVehiculo.lat, lng: firstVehiculo.lng, ubicacion: firstVehiculo.ubicacion })
   }, [vehiculo])
+
+  
     return (
         <Fragment>
       <div className="container">
