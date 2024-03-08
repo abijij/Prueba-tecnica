@@ -2,12 +2,12 @@ const express = require('express');
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
-const server = https.createServer(credentials, app);
+
 const app = express();
 const logger = require('morgan');
 const cors = require('cors');
 const multer = require('multer');
-const io = require('socket.io')(server);
+
 const vehiculosSocket = require('./sockets/vehiculoSockets');
 
 const vehiculosRoutes = require('./routes/VehiculosRoutes');
@@ -24,7 +24,7 @@ app.set('port', port);
 
 const upload = multer({ storage: multer.memoryStorage() });
 
-vehiculosSocket(io);
+
 
 vehiculosRoutes(app, upload);
 
@@ -36,7 +36,11 @@ const certificate = fs.readFileSync(certificatePath, 'utf8');
 
 const credentials = { key: privateKey, cert: certificate };
 
+const server = https.createServer(credentials, app);
 
+const io = require('socket.io')(server);
+
+vehiculosSocket(io);
 
 server.listen(port, '172.26.6.212', function () {
     console.log('Listening on port ' + port + ' with HTTPS');
