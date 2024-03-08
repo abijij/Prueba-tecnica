@@ -19,7 +19,7 @@ export const Maps: React.FC = () => {
     const [showMessage, setShowMessage] = useState(false);
     const [detailLoc, setdetailLoc] = useState("");
     const [routingEnabled, setRoutingEnabled] = useState(false);
-    
+    console.log(activeMarker)
     
 
   
