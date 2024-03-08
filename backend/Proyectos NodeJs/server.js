@@ -7,6 +7,8 @@ const app = express();
 const logger = require('morgan');
 const cors = require('cors');
 const multer = require('multer');
+const io = require('socket.io')(server);
+const vehiculosSocket = require('./sockets/vehiculoSockets');
 
 const vehiculosRoutes = require('./routes/VehiculosRoutes');
 
@@ -21,6 +23,8 @@ app.disable('x-powered-by');
 app.set('port', port);
 
 const upload = multer({ storage: multer.memoryStorage() });
+
+vehiculosSocket(io);
 
 vehiculosRoutes(app, upload);
 
