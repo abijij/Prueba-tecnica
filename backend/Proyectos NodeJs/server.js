@@ -2,12 +2,11 @@ const express = require('express');
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
-
-const app = express();
-const logger = require('morgan');
 const cors = require('cors');
 const multer = require('multer');
 
+const app = express();
+const logger = require('morgan');
 const vehiculosSocket = require('./sockets/vehiculoSockets');
 const vehiculosRoutes = require('./routes/VehiculosRoutes');
 
@@ -15,15 +14,13 @@ const port = process.env.PORT || 443;
 
 app.use(logger('dev'));
 
-
-const corsOptions = {
-  origin: 'https://prueba-tecnica-khaki.vercel.app',
+// Configuración para permitir todos los orígenes
+app.use(cors({
+  origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
-};
-
-app.use(cors(corsOptions));
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -49,19 +46,19 @@ const io = require('socket.io')(server);
 vehiculosSocket(io);
 
 server.listen(port, '172.26.6.212', function () {
-    console.log('Listening on port ' + port + ' with HTTPS');
+  console.log('Listening on port ' + port + ' with HTTPS');
 });
 
 app.use((err, req, res, next) => {
-    console.log(err);
-    res.status(err.status || 500).send(err.stack);
+  console.log(err);
+  res.status(err.status || 500).send(err.stack);
 });
 
 app.get('/', (req, res) => {
-    res.send('Root route of the backend');
+  res.send('Root route of the backend');
 });
 
 module.exports = {
-    app: app,
-    server: server
+  app: app,
+  server: server
 };
