@@ -182,6 +182,7 @@ export const Maps: React.FC = () => {
     }
 
     useEffect(() => {
+      console.log("log del socket" + vehiculo);
       const firstVehiculo = vehiculo[0];
                 console.log(vehiculo)
                 setVehicleLocation({
